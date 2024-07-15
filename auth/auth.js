@@ -16,3 +16,5 @@ const auth = (req, res, next) => {
       res.status(400).send({ error: 'Invalid token' });
     }
   };
+
+  module.exports = auth;
