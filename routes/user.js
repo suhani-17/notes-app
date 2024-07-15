@@ -34,7 +34,7 @@ router.post('/signup', async (req, res) => {
         return res.status(400).send({ error: 'Credentials are Invalid!' });
       }
   
-      const token = jwt.sign({ _id: user._id }, process.env.secret, { expiresIn: '1h' });
+      const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '1h' });
 
       res.send({ token });
     } 
