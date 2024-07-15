@@ -67,3 +67,21 @@ router.post('/create', auth, async (req, res) => {
     }
 
   });
+
+  router.get('/version-history/:id', auth, async (req, res) => {
+
+    try {
+      const note = await Note.findById(req.params.id).populate('versionHistory.user', 'username');
+
+      if (!note || (!note.owner.equals(req.user._id) && !note.sharedWith.includes(req.user._id))) {
+        return res.status(404).send({ error: 'Note not found or Permission denied!' });
+      }
+
+      res.send(note.versionHistory);
+    } 
+    
+    catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+
+  });
